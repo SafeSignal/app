@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SafeSignal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth Device Name</title>
 </head>
 <body>
+<h1>Connect to a Bluetooth Device</h1>
+<button onclick="connectToDevice()">Connect</button>
+<p id="deviceName">Device Name: <span id="name"></span></p>
 
+<script>
+    async function connectToDevice() {
+        try {
+            // Request a Bluetooth device
+            const device = await navigator.bluetooth.requestDevice({
+                acceptAllDevices: true
+            });
+
+            // Display the device name
+            document.getElementById('name').textContent = device.name || 'Unknown Device';
+            console.log(`Connected to device: ${device.name}`);
+        } catch (error) {
+            console.error('Error connecting to Bluetooth device:', error);
+            document.getElementById('name').textContent = 'Connection failed';
+        }
+    }
+</script>
 </body>
 </html>
